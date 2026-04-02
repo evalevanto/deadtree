@@ -11,8 +11,7 @@ def _require_clean(paper_dir: Path, force: bool) -> None:
     if repo.is_clean(paper_dir):
         return
     if force:
-        repo._git("add", "-A", cwd=paper_dir)
-        repo._git("commit", "-m", "WIP (deadtree auto-commit)", cwd=paper_dir)
+        repo.auto_commit(paper_dir)
     else:
         raise SystemExit(
             "Uncommitted changes. Commit first, or use --force.\n"
@@ -108,10 +107,11 @@ def log(paper_dir: Path, n: int = 10) -> None:
 
 
 def _local_syncable(paper_dir: Path) -> list[str]:
-    return [
-        str(p.relative_to(paper_dir))
-        for p in sorted(paper_dir.rglob("*"))
-        if p.is_file()
-        and not str(p.relative_to(paper_dir)).startswith(".")
-        and overleaf.should_sync(str(p.relative_to(paper_dir)))
-    ]
+    files = []
+    for path in sorted(paper_dir.rglob("*")):
+        if not path.is_file():
+            continue
+        rel = str(path.relative_to(paper_dir))
+        if not rel.startswith(".") and overleaf.should_sync(rel):
+            files.append(rel)
+    return files

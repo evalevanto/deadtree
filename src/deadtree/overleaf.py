@@ -26,7 +26,7 @@ def download(session: requests.Session, project_id: str) -> dict[str, bytes]:
     """Download project as zip, return {path: bytes}."""
     r = session.get(f"{BASE_URL}/project/{project_id}/download/zip", stream=True)
     if "login" in r.url:
-        raise SystemExit("Session expired. Run: dead-tree login")
+        raise SystemExit("Session expired. Run: deadtree login")
     r.raise_for_status()
 
     chunks, total = [], 0
@@ -72,7 +72,7 @@ def get_project_tree(session: requests.Session, project_id: str) -> tuple[dict[s
             walk(root, "")
             return folder_map, root["_id"]
 
-    raise SystemExit("Could not get project data. Run: dead-tree login")
+    raise SystemExit("Could not get project data. Run: deadtree login")
 
 
 def upload(session, project_id, csrf, folder_map, root_id, files: dict[str, bytes]) -> int:

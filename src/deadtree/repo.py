@@ -1,6 +1,8 @@
-"""Git operations for dead-tree sync. All git interaction goes through here."""
+"""Git operations for deadtree sync. All git interaction goes through here."""
 
+import os
 import subprocess
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -56,6 +58,12 @@ def is_clean(paper_dir: Path) -> bool:
     return _git("status", "--porcelain", cwd=paper_dir).stdout.strip() == ""
 
 
+def auto_commit(paper_dir: Path, message: str = "WIP (deadtree auto-commit)") -> None:
+    """Stage all changes and commit."""
+    _git("add", "-A", cwd=paper_dir)
+    _git("commit", "-m", message, cwd=paper_dir)
+
+
 def commit_remote_state(paper_dir: Path, remote_files: dict[str, bytes], action: str) -> str:
     """Write remote files to overleaf/main branch without disturbing the working tree.
 
@@ -71,41 +79,21 @@ def commit_remote_state(paper_dir: Path, remote_files: dict[str, bytes], action:
         parent_args = ["-p", parent]
 
     # Build a tree object from remote_files using a temporary index
-    import os, tempfile
     fd, tmp_index = tempfile.mkstemp(prefix="deadtree-idx-")
     os.close(fd)
     os.unlink(tmp_index)  # git needs to create the index file itself
     env = {**os.environ, "GIT_INDEX_FILE": tmp_index}
 
+    def _run(*args, **kwargs):
+        return subprocess.run(["git", *args], cwd=paper_dir, capture_output=True, check=True, **kwargs)
+
     try:
         for name, content in remote_files.items():
-            # Write blob
-            r = subprocess.run(
-                ["git", "hash-object", "-w", "--stdin"],
-                input=content, cwd=paper_dir,
-                capture_output=True, check=True,
-            )
-            blob_hash = r.stdout.decode().strip()
+            blob = _run("hash-object", "-w", "--stdin", input=content).stdout.decode().strip()
+            _run("update-index", "--add", "--cacheinfo", f"100644,{blob},{name}", env=env)
 
-            # Add to temp index
-            subprocess.run(
-                ["git", "update-index", "--add", "--cacheinfo", f"100644,{blob_hash},{name}"],
-                cwd=paper_dir, env=env, capture_output=True, check=True,
-            )
-
-        # Write tree from temp index
-        r = subprocess.run(
-            ["git", "write-tree"],
-            cwd=paper_dir, env=env, capture_output=True, text=True, check=True,
-        )
-        tree_hash = r.stdout.strip()
-
-        # Create commit
-        r = subprocess.run(
-            ["git", "commit-tree", tree_hash, *parent_args, "-m", message],
-            cwd=paper_dir, capture_output=True, text=True, check=True,
-        )
-        commit_hash = r.stdout.strip()
+        tree_hash = _run("write-tree", env=env, text=True).stdout.strip()
+        commit_hash = _run("commit-tree", tree_hash, *parent_args, "-m", message, text=True).stdout.strip()
 
         # Point overleaf/main at the new commit
         _git("update-ref", f"refs/heads/{OVERLEAF_BRANCH}", commit_hash, cwd=paper_dir)
