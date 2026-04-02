@@ -1,0 +1,85 @@
+name: 'deadtree sync'
+description: 'Sync LaTeX projects with Overleaf'
+branding:
+  icon: 'refresh-cw'
+  color: 'green'
+
+inputs:
+  direction:
+    description: 'pull or push'
+    required: true
+  cookies:
+    description: 'Base64-encoded cookies.json from deadtree login'
+    required: true
+  project_id:
+    description: 'Overleaf project ID (overrides .overleaf.json)'
+    required: false
+  paper_dir:
+    description: 'LaTeX project directory (relative to repo root)'
+    required: false
+    default: '.'
+  force:
+    description: 'Auto-commit uncommitted changes before sync'
+    required: false
+    default: 'false'
+
+outputs:
+  result:
+    description: 'clean, conflict, up-to-date, or pushed'
+    value: ${{ steps.sync.outputs.result }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install deadtree
+      shell: bash
+      run: pip install deadtree
+
+    - name: Write cookies
+      shell: bash
+      run: |
+        mkdir -p ~/.config/deadtree
+        chmod 700 ~/.config/deadtree
+        echo "${{ inputs.cookies }}" | base64 -d > ~/.config/deadtree/cookies.json
+        chmod 600 ~/.config/deadtree/cookies.json
+
+    - name: Configure git
+      shell: bash
+      run: |
+        git config user.name "deadtree[bot]"
+        git config user.email "deadtree[bot]@users.noreply.github.com"
+
+    - name: Sync
+      id: sync
+      shell: bash
+      working-directory: ${{ inputs.paper_dir }}
+      env:
+        OVERLEAF_PROJECT_ID: ${{ inputs.project_id }}
+      run: |
+        ARGS="${{ inputs.direction }}"
+        if [ "${{ inputs.force }}" = "true" ]; then
+          ARGS="$ARGS --force"
+        fi
+
+        OUTPUT=$(deadtree $ARGS 2>&1) || true
+        echo "$OUTPUT"
+
+        if echo "$OUTPUT" | grep -q "conflict"; then
+          echo "result=conflict" >> "$GITHUB_OUTPUT"
+          exit 1
+        elif echo "$OUTPUT" | grep -q "up to date"; then
+          echo "result=up-to-date" >> "$GITHUB_OUTPUT"
+        elif echo "$OUTPUT" | grep -q "uploaded"; then
+          echo "result=pushed" >> "$GITHUB_OUTPUT"
+        elif echo "$OUTPUT" | grep -q "Pulled"; then
+          echo "result=clean" >> "$GITHUB_OUTPUT"
+        elif echo "$OUTPUT" | grep -q "expired"; then
+          echo "::error::Overleaf session expired. Update OVERLEAF_COOKIES secret."
+          echo "result=auth-failed" >> "$GITHUB_OUTPUT"
+          exit 1
+        fi
