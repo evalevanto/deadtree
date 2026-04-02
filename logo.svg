@@ -1,68 +1,76 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
-  <!-- Dead tree: black silhouette with bare branches -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Circle -->
+  <circle cx="100" cy="100" r="92" fill="none" stroke="#1a1a1a" stroke-width="4"/>
 
   <!-- Trunk -->
-  <path d="M 58 128 L 55 75 Q 54 65 56 58 L 58 48 Q 59 42 61 38 L 64 30 Q 65 27 64 24"
-        fill="none" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
-  <path d="M 70 128 L 73 75 Q 74 65 72 58 L 70 48 Q 69 42 67 38 L 64 30"
-        fill="none" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
-
-  <!-- Trunk fill -->
-  <path d="M 55 128 L 52 75 Q 51 62 54 50 L 58 38 Q 61 30 64 24 Q 67 30 70 38 L 74 50 Q 77 62 76 75 L 73 128 Z"
+  <path d="M 92 160 Q 90 140 92 120 Q 93 105 96 95 Q 98 88 100 78
+           Q 102 88 104 95 Q 107 105 108 120 Q 110 140 108 160"
         fill="#1a1a1a"/>
 
-  <!-- Main branches -->
-  <!-- Left major -->
-  <path d="M 58 55 Q 45 48 35 35 Q 30 28 22 18"
-        fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
-  <!-- Left sub-branches -->
-  <path d="M 35 35 Q 28 38 18 36"
+  <!-- Roots -->
+  <path d="M 92 158 Q 82 162 70 160" fill="none" stroke="#1a1a1a" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M 88 160 Q 80 168 68 170" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 108 158 Q 118 162 130 160" fill="none" stroke="#1a1a1a" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M 112 160 Q 120 168 132 170" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Left main branch -->
+  <path d="M 96 90 Q 80 72 60 55 Q 50 46 38 38"
+        fill="none" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 60 55 Q 48 58 36 54"
+        fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 70 65 Q 58 70 46 68"
         fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
-  <path d="M 42 42 Q 35 50 25 52"
+  <path d="M 38 38 Q 30 28 24 20"
         fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
-  <path d="M 28 25 Q 22 30 14 28"
+  <path d="M 38 38 Q 42 28 44 18"
+        fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Left secondary -->
+  <path d="M 94 82 Q 78 68 64 48 Q 56 38 48 24"
+        fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 64 48 Q 54 44 44 40"
         fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M 22 18 Q 18 12 12 8"
-        fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M 22 18 Q 26 10 28 4"
+  <path d="M 48 24 Q 42 16 36 12"
         fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
 
-  <!-- Right major -->
-  <path d="M 70 50 Q 82 42 92 28 Q 96 22 100 14"
-        fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
-  <!-- Right sub-branches -->
-  <path d="M 92 28 Q 100 32 108 30"
+  <!-- Right main branch -->
+  <path d="M 104 90 Q 120 72 140 55 Q 150 46 162 38"
+        fill="none" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 140 55 Q 152 58 164 54"
+        fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 130 65 Q 142 70 154 68"
         fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
-  <path d="M 82 38 Q 90 44 98 46"
+  <path d="M 162 38 Q 170 28 176 20"
         fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
-  <path d="M 96 22 Q 102 16 108 12"
+  <path d="M 162 38 Q 158 28 156 18"
+        fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Right secondary -->
+  <path d="M 106 82 Q 122 68 136 48 Q 144 38 152 24"
+        fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 136 48 Q 146 44 156 40"
         fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M 100 14 Q 96 8 92 2"
-        fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M 100 14 Q 106 10 112 6"
+  <path d="M 152 24 Q 158 16 164 12"
         fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
 
   <!-- Center top branches -->
-  <path d="M 64 24 Q 60 14 55 6"
-        fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M 64 24 Q 68 14 73 6"
-        fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M 64 30 Q 56 22 48 16"
-        fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
-  <path d="M 64 30 Q 72 22 80 16"
-        fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 100 78 Q 94 58 86 38 Q 82 28 76 18"
+        fill="none" stroke="#1a1a1a" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M 86 38 Q 78 34 70 30"
+        fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M 76 18 Q 72 12 68 10"
+        fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
 
-  <!-- Small twigs -->
-  <path d="M 55 6 Q 50 2 46 0" fill="none" stroke="#1a1a1a" stroke-width="1" stroke-linecap="round"/>
-  <path d="M 55 6 Q 58 0 60 -2" fill="none" stroke="#1a1a1a" stroke-width="1" stroke-linecap="round"/>
-  <path d="M 73 6 Q 70 0 68 -2" fill="none" stroke="#1a1a1a" stroke-width="1" stroke-linecap="round"/>
-  <path d="M 73 6 Q 78 2 82 0" fill="none" stroke="#1a1a1a" stroke-width="1" stroke-linecap="round"/>
-  <path d="M 48 16 Q 42 12 38 8" fill="none" stroke="#1a1a1a" stroke-width="1" stroke-linecap="round"/>
-  <path d="M 80 16 Q 86 12 90 8" fill="none" stroke="#1a1a1a" stroke-width="1" stroke-linecap="round"/>
+  <path d="M 100 78 Q 106 58 114 38 Q 118 28 124 18"
+        fill="none" stroke="#1a1a1a" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M 114 38 Q 122 34 130 30"
+        fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M 124 18 Q 128 12 132 10"
+        fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
 
-  <!-- Roots -->
-  <path d="M 52 128 Q 44 122 36 120" fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
-  <path d="M 76 128 Q 84 122 92 120" fill="none" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
-  <path d="M 48 128 Q 40 126 32 128" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
-  <path d="M 80 128 Q 88 126 96 128" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+  <!-- Crown top -->
+  <path d="M 100 78 Q 98 60 96 42 Q 95 30 94 18"
+        fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 100 78 Q 102 60 104 42 Q 105 30 106 18"
+        fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linecap="round"/>
 </svg>

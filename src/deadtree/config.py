@@ -6,7 +6,6 @@ import re
 from pathlib import Path
 
 CONFIG_FILENAME = ".overleaf.json"
-SESSION_DIR_NAME = ".overleaf_session"
 
 SYNC_EXTENSIONS = {
     ".tex", ".bib", ".sty", ".cls", ".bst",
@@ -17,7 +16,7 @@ SYNC_EXTENSIONS = {
 IGNORE_PATTERNS = {
     "*.aux", "*.log", "*.out", "*.synctex.gz",
     "*.fdb_latexmk", "*.fls", "*.bbl", "*.blg",
-    "main.pdf", ".overleaf.json", ".overleaf_session",
+    "main.pdf", ".overleaf.json",
 }
 
 
@@ -76,10 +75,10 @@ def get_paper_dir(cfg: dict) -> Path:
     return (config_dir / rel).resolve()
 
 
-def get_session_dir(cfg: dict) -> Path:
-    """Session dir lives next to .overleaf.json (or in cwd)."""
-    config_dir = Path(cfg.get("_config_dir", ".")).resolve()
-    return config_dir / SESSION_DIR_NAME
+def get_session_dir() -> Path:
+    """Global session dir: ~/.config/deadtree/ (or $XDG_CONFIG_HOME/deadtree/)."""
+    base = Path(os.getenv("XDG_CONFIG_HOME", Path.home() / ".config"))
+    return base / "deadtree"
 
 
 def init_config(project_id: str, paper_dir: str = ".") -> Path:

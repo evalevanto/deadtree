@@ -7,7 +7,6 @@ from pathlib import Path
 OVERLEAF_BRANCH = "overleaf/main"
 
 GITIGNORE_ENTRIES = [
-    ".overleaf_session/",
     ".overleaf.json",
     "*.aux", "*.log", "*.out", "*.synctex.gz",
     "*.fdb_latexmk", "*.fls", "*.bbl", "*.blg",
@@ -72,8 +71,10 @@ def commit_remote_state(paper_dir: Path, remote_files: dict[str, bytes], action:
         parent_args = ["-p", parent]
 
     # Build a tree object from remote_files using a temporary index
-    import tempfile, os
-    tmp_index = tempfile.mktemp(prefix="dead-tree-idx-")
+    import os, tempfile
+    fd, tmp_index = tempfile.mkstemp(prefix="deadtree-idx-")
+    os.close(fd)
+    os.unlink(tmp_index)  # git needs to create the index file itself
     env = {**os.environ, "GIT_INDEX_FILE": tmp_index}
 
     try:

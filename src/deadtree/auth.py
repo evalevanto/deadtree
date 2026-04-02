@@ -18,8 +18,7 @@ def login(session_dir: Path) -> None:
             "Install: pip install 'deadtree[login]' && playwright install chromium"
         )
 
-    session_dir.mkdir(parents=True, exist_ok=True)
-    os.chmod(session_dir, 0o700)
+    os.makedirs(session_dir, mode=0o700, exist_ok=True)
     cookie_file = session_dir / "cookies.json"
 
     with sync_playwright() as p:
@@ -46,8 +45,9 @@ def login(session_dir: Path) -> None:
 
         print("Login successful!")
         cookies = context.cookies()
-        cookie_file.write_text(json.dumps(cookies, indent=2))
-        os.chmod(cookie_file, 0o600)
+        fd = os.open(cookie_file, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+        with os.fdopen(fd, "w") as f:
+            json.dump(cookies, f, indent=2)
         print(f"Session saved to {cookie_file}")
         context.close()
 

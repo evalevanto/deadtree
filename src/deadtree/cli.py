@@ -48,7 +48,7 @@ def main(argv: list[str] | None = None) -> None:
     cfg = load_config()
 
     if args.command == "login":
-        login(get_session_dir(cfg))
+        login(get_session_dir())
         return
 
     paper_dir = get_paper_dir(cfg)
@@ -63,7 +63,7 @@ def main(argv: list[str] | None = None) -> None:
 
     # Online commands
     project_id = get_project_id(cfg)
-    session = get_session(get_session_dir(cfg))
+    session = get_session(get_session_dir())
 
     if args.command == "status":
         status(session, project_id, paper_dir)
