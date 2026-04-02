@@ -3,7 +3,6 @@
   <br>
   <strong>deadtree</strong>
   <br>
-  <em>because papers are dead trees</em>
 </p>
 
 <p align="center">
