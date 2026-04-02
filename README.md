@@ -41,7 +41,7 @@ deadtree push                     # ship it
 | `deadtree pull` | Overleaf → local. Downloads, commits to `overleaf/main`, merges into your branch. |
 | `deadtree push` | Local → Overleaf. Uploads changed files, updates `overleaf/main`. |
 | `deadtree status` | What's different between you and Overleaf? |
-| `deadtree diff` | `git diff` against Overleaf state. Colored. Contextual. Free. |
+| `deadtree diff` | `git diff` against Overleaf state. |
 | `deadtree log` | Sync history. Every pull and push, timestamped. |
 
 ## Conflicts
