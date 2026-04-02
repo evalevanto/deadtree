@@ -71,6 +71,12 @@ def get_session(session_dir: Path) -> requests.Session:
     return session
 
 
+def check_auth(session: requests.Session) -> bool:
+    """Check if the session is valid. Returns True if authenticated."""
+    r = session.get("https://www.overleaf.com/project", allow_redirects=False)
+    return r.status_code == 200
+
+
 def get_csrf(session: requests.Session, project_id: str) -> str:
     """Fetch CSRF token from the Overleaf project page."""
     r = session.get(f"https://www.overleaf.com/project/{project_id}")

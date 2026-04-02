@@ -4,7 +4,7 @@ import argparse
 import sys
 
 from . import __version__
-from .auth import get_csrf, get_session, login
+from .auth import check_auth, get_csrf, get_session, login
 from .config import get_paper_dir, get_project_id, get_session_dir, init_config, load_config
 from .sync import diff, log, pull, push, status
 
@@ -29,6 +29,7 @@ def main(argv: list[str] | None = None) -> None:
     p_pull = sub.add_parser("pull", help="Download Overleaf → local")
     p_pull.add_argument("--force", action="store_true", help="Auto-commit uncommitted changes")
 
+    sub.add_parser("check-auth", help="Verify Overleaf session is valid")
     sub.add_parser("status", help="Show diff between local and Overleaf")
     sub.add_parser("diff", help="Show git diff against Overleaf state")
 
@@ -53,7 +54,15 @@ def main(argv: list[str] | None = None) -> None:
 
     paper_dir = get_paper_dir(cfg)
 
-    # Offline commands (no Overleaf session needed)
+    # Offline commands
+    if args.command == "check-auth":
+        session = get_session(get_session_dir())
+        if check_auth(session):
+            print("Authenticated.")
+        else:
+            print("Session expired. Run: deadtree login")
+            sys.exit(1)
+        return
     if args.command == "diff":
         diff(paper_dir)
         return
