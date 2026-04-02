@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "deadtree"
+version = "0.2.0"
+description = "Sync local LaTeX projects with Overleaf. Because papers are dead trees."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = ["requests>=2.28"]
+
+[project.optional-dependencies]
+login = ["playwright>=1.40"]
+
+[project.scripts]
+deadtree = "deadtree.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/deadtree"]
