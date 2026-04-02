@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  Sync LaTeX projects with Overleaf. Free tier. Git-powered merges. No BS.
+  Sync LaTeX projects with Overleaf. Free tier. Git-powered merges.
 </p>
 
 ---
@@ -85,10 +85,6 @@ deadtree init https://www.overleaf.com/project/YOUR_PROJECT_ID
 ```
 
 Writes `.overleaf.json`. That's the only config.
-
-## Why not just use Overleaf's git integration?
-
-It costs money. deadtree is free. Also deadtree gives you proper branching, local git history, and works with any git workflow you already have.
 
 ## License
 
