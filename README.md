@@ -6,12 +6,10 @@
 </p>
 
 <p align="center">
-  Sync LaTeX projects with Overleaf. Free tier. Git-powered merges.
+ VibeCoded. Sync LaTeX projects with Overleaf. Free tier. Git-powered merges.
 </p>
 
 ---
-
-Overleaf charges you $$$$ for git sync. deadtree does it for free.
 
 Your local git repo is the source of truth. An `overleaf/main` branch tracks what's on Overleaf. Pull merges. Push uploads. Conflicts are real git conflicts — resolve them with your editor, not some janky custom diff tool.
 
